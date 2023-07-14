@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
         android:layout_marginTop="8dp"/>
 
     <EditText
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Correo electronico"
@@ -40,6 +41,7 @@
         android:textSize="15sp"/>
 
     <EditText
+        android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Contraseña"

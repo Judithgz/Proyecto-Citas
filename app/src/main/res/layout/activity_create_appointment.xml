@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout_create_appointment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_morado"
-    tools:context=".CreateAppointment">
+    tools:context=".ui.CreateAppointmentActivity">
     
 
     <LinearLayout
@@ -25,30 +26,330 @@
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"/>
 
-
-        <Button
-            android:id="@+id/btn_reservar_cita"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_siguiente"
             android:layout_width="match_parent"
-            android:text="Reservar Cita"
-            android:backgroundTint="@color/btn_color"
-            android:drawableLeft="@drawable/ic_post_add"
-            style="@style/MenuButtom"/>
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:cardCornerRadius="10dp"
+            android:elevation="8dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            app:contentPadding="12dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Comentarios adicionales (síntomas, preguntas, solicitud especial, etc)"/>
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Servicio"
+                    android:layout_marginTop="12dp"/>
+                <Spinner
+                    android:id="@+id/spinner_servicios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de paciente"
+                    android:layout_marginTop="12dp"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:text="Mis Citas"
-            android:backgroundTint="@color/btn_color"
-            android:drawableLeft="@drawable/ic_calendar"
-            style="@style/MenuButtom"/>
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_group_type"
+                    android:checkedButton="@id/radio_sinAntecedentes"
+                    android:orientation="vertical">
+                    <RadioButton android:id="@+id/radio_sinAntecedentes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sin antecedentes (VIH, VPH, etc.)" />
+                    <RadioButton android:id="@+id/radio_conAntecedentes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Con antecedentes (VIH, VPH, otros.)"/>
+                </RadioGroup>
 
-        <Button
-            android:id="@+id/btn_logout"
+
+                <Button
+                    android:id="@+id/btn_siguiente"
+                    android:layout_width="match_parent"
+                    android:text="Siguiente"
+                    android:backgroundTint="@color/btn_color"
+                    android:drawableRight="@drawable/ic_next"
+                    style="@style/NextButtom"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_confirmar"
             android:layout_width="match_parent"
-            android:text="Cerrar Sesion"
-            android:backgroundTint="@color/btn_color"
-            android:drawableLeft="@drawable/ic_logout"
-            style="@style/MenuButtom"/>
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            android:elevation="8dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            app:contentPadding="12dp">
+            
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Especialistas"/>
+                    <Spinner
+                        android:id="@+id/spinner_especialistas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha para la cita"
+                        android:layout_marginTop="12dp"/>
+                    <EditText
+                        android:id="@+id/et_fecha"
+                        android:onClick="onClickScheduledDate"
+                        android:inputType="date"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:maxLines="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hora de atención"
+                        android:layout_marginTop="12dp"/>
+                    <TextView
+                        android:id="@+id/tv_seleccionar_medico_fecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Selecciona un especialista y una fecha pra ver las horas disponibles."
+                        android:textSize="10dp"
+                        android:layout_margin="10dp"
+                        android:textColor="@color/naranja"/>
+                    <TextView
+                        android:id="@+id/tv_horas_disponibles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:text= "No se encontraron horas disponibles para el especialista y el día seleccionado."
+                        android:textSize="10dp"
+                        android:layout_margin="10dp"
+                        android:textColor="@color/accent_naranja"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/radio_group_izq"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                            </LinearLayout>
+
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/radio_group_der"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+
+                    <Button
+                        android:id="@+id/btn_siguiente_dos"
+                        android:layout_width="match_parent"
+                        android:text="Siguiente"
+                        android:backgroundTint="@color/btn_color"
+                        android:drawableRight="@drawable/ic_next"
+                        style="@style/NextButtom"/>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+            
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_resumen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            android:elevation="8dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            app:contentPadding="20dp">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Datos de la cita"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Especialista: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/tv_resumen_especialista"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Especialista Pamela"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Servicio: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/tv_resumen_servicio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Inyección"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/tv_resumen_fecha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12/07/2023"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hora: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/tv_resumen_hora"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10:00 AM"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tipo de paciente: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/tv_resumen_tipoPaciente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sin antecedentes"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Comentarios: "
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/tv_resumen_comentarios"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tengo picazon"/>
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btn_confirmar"
+                        android:layout_width="match_parent"
+                        android:text="Confirmar"
+                        android:backgroundTint="@color/btn_color"
+                        android:drawableRight="@drawable/ic_send"
+                        style="@style/NextButtom"/>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.cardview.widget.CardView>
+
+
 
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

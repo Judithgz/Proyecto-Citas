@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".ui.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
             android:layout_marginTop="8dp"/>
 
         <EditText
+            android:id="@+id/etRegisterName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Nombre completo"
@@ -40,6 +41,7 @@
             android:textSize="15sp"/>
 
         <EditText
+            android:id="@+id/etRegisterEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Correo electronico"
@@ -50,6 +52,7 @@
             android:textSize="15sp"/>
 
         <EditText
+            android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Contraseña"
@@ -60,6 +63,7 @@
             android:textSize="15sp"/>
 
         <EditText
+            android:id="@+id/etRegisterPasswordConfirmation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Confirmar contraseña"
@@ -78,6 +82,7 @@
         android:gravity="center_horizontal">
 
         <Button
+            android:id="@+id/btnConfirmRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registrarse"
@@ -88,7 +93,7 @@
 
 
         <TextView
-            android:id="@+id/go_to_login"
+            android:id="@+id/tvGoToLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
